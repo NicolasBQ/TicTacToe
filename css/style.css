@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --background: #111112;
+    --primary-100: #333336; 
+    --main-green: #39F01F;
+    --main-blue: #00EAD3;
+}
+
+body {
+    height: 100vh;
+    background-color: var(--background);
+}
+.title {
+   height: 275px;
+   width: 300px;
+   margin: 100px auto 50px;
+   background-image:url(../../img/TitleResponsive.png)
+}
+.button-section {
+    height: 350px;
+    width: 300px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.button-section a {
+    text-decoration: none;
+}
+.button-section button {
+    height: 70px;
+    width: 260px;
+    margin: 20px 0;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    font-family: 'Aclonica';
+    font-size: 1.2rem;
+    background-color: var(--primary-100);
+    transform: skew(10deg);
+    border: none;
+    border-bottom: 2px solid var(--main-green);
+    border-right: 2px solid var(--main-green);
+    cursor: pointer;
+}
+.button-section button i {
+    font-size: 1.5rem;
+    font-family: 'Lilita One';
+    color: var(--main-green);
+}
+.button-section button:hover {
+    transform: translateY(-10px) skew(10deg);
+    transition: 300ms;
+    border-bottom: 7px solid var(--main-blue);
+    border-right: 5px solid var(--main-blue) ;
+}
+.button-section button:hover i {
+    color: var(--main-blue)
+}
+.button-section :nth-child(2n) button {
+    border-bottom: 2px solid var(--main-blue);
+    border-right: 2px solid var(--main-blue);
+}
+.button-section :nth-child(2n) button i {
+    color: var(--main-blue);
+}
+.button-section :nth-child(2n):hover button {
+    border-bottom: 7px solid var(--main-green);
+    border-right: 5px solid var(--main-green);   
+}
+.button-section :nth-child(2n):hover button i {
+    color: var(--main-green)  
+}
+@media (min-width:1024px) {
+    .title {
+        height: 315px;
+        width: 970px;
+        margin: 50px auto 50px;
+        background-image: url(../../img/titleBS.png);
+    }
+    .button-section button {
+        height: 80px;
+        width: 290px;
+        font-size: 1.3rem;
+    }
+}

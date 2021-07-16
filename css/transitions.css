@@ -1,0 +1,15 @@
+.transition-players {
+    opacity: 1;
+    transition: 400ms;
+    transform: translateX(0);
+}
+
+html.is-animating .transition-players {
+    opacity: 1;
+    transform: translateX(100%);
+}
+
+html.is-leaving .transition-players {
+    opacity: 0;
+    transform: translateX(0);
+}
