@@ -1,0 +1,162 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --background: #111112;
+    --primary-100: #333336; 
+    --main-green: #39F01F;
+    --main-blue: #00EAD3;
+}
+
+body {
+    height: 100vh;
+    background-color: var(--background);
+}
+.alert-content {
+    color: #fff;
+    font-family: 'Aclonica';
+}
+.alert-input {
+    border: none;
+    font-family: 'Aclonica';
+    color: #fff;
+    text-align: center;
+}
+
+.alert-confirm {
+    height: 50px;
+    width: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    font-family: 'Aclonica';
+    font-size: 1.2rem;
+    border: 2px solid var(--background);
+    cursor: pointer;
+}
+.alert-confirm:hover {
+    transform: translateY(-5px);
+    transition: 300ms;
+    border-bottom: 5px solid var(--main-blue);
+    border-right: 4px solid var(--main-blue) ;
+}
+
+.score-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.score-container div {
+    margin: 10px;
+    text-align: center;
+    font-size: 1.3rem;
+    font-family: 'Aclonica';
+    color: #fff;
+}
+.gameboard {
+    height: 300px;
+    width: 300px;
+    margin: 50px auto;
+    border-radius: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 3px;
+}
+.gameboard button {
+    border: none;
+    background-color: var(--primary-100);
+    cursor: pointer;
+    color: #fff;
+    font-size: 5rem;
+    font-family: 'Lilita one';
+}
+
+.gameboard :first-child {
+    border-top-left-radius: 20px;
+}
+.gameboard :nth-child(3) {
+    border-top-right-radius: 20px;
+}
+.gameboard :nth-child(7) {
+    border-bottom-left-radius: 20px;
+}
+.gameboard :nth-child(9) {
+    border-bottom-right-radius: 20px;
+}
+.buttons {
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.buttons a {
+    text-decoration: none;
+}
+.buttons button {
+    height: 50px;
+    width: 250px;
+    margin: 10px auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    font-family: 'Aclonica';
+    font-size: 1.2rem;
+    background-color: var(--primary-100);
+    transform: skew(10deg);
+    border: none;
+    border-bottom: 2px solid var(--main-green);
+    border-right: 2px solid var(--main-green);
+    cursor: pointer;
+}
+.buttons button i {
+    font-family: 'Lilita One';
+    color: var(--main-green);
+    font-size: 1.5rem;
+}
+.buttons button:hover {
+    transform: translateY(-10px) skew(10deg);
+    transition: 300ms;
+    border-bottom: 7px solid var(--main-blue);
+    border-right: 5px solid var(--main-blue) ;
+}
+.buttons button:hover i {
+    color: var(--main-blue)
+}
+@media (min-width:768px) {
+    .score-container div {
+        margin: 20px;
+        font-size: 1.6rem;
+    }
+    .gameboard {
+        height: 500px;
+        width: 500px;
+        margin: 50px auto 30px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-gap: 3px;
+    }
+    .buttons {
+        height: auto;
+        width: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .buttons button {
+        margin: 0 15px;
+        height: 60px;
+        width: 250px;
+    }
+}
