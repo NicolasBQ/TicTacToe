@@ -41,14 +41,19 @@ function mount() {
         const displayController = (() => { //Will define the DOM events
             let fieldElements = document.querySelectorAll('.field');
             let resetGame = document.querySelector('.reset-gameboard');
+            let resetPoints = document.querySelector('.reset-points');
             let currentName = document.querySelector('.current-player')
             let playerOne = document.querySelector('.player-one');
-            let playerTwo = document.querySelector('.player-two')
+            let playerTwo = document.querySelector('.player-two');
+            let scoreP1 = document.querySelector('.score-player1');
+            let scoreP2 = document.querySelector('.score-player2')
+            let pointsX = 0;
+            let pointsO = 0;
 
             fieldElements.forEach((field) => {
                 field.addEventListener('click', (e) => {
                     if(e.target.textContent != '' || gameController.getIsOver()) return;
-                    gameController.playRound(e.target.dataset.index)
+                    gameController.playRound(parseInt(e.target.dataset.index))
                 })
             })
 
@@ -62,19 +67,25 @@ function mount() {
             }
 
             const turnMessage = (name, style) => {
-                currentName.innerText = name + "'s turn";
+                currentName.textContent = name + "'s turn";
                 currentName.style.color = style;
             }
 
             const resultMessage = (sign) => {
                 if(sign === 'X') {
-                    currentName.innerText = playerOne.innerText;
+                    scoreP1.innerText = ''
+                    pointsX++;
+                    currentName.innerText = playerOne.innerText + ' has won!';
+                    scoreP1.innerText = ': ' + pointsX;
                 }
                 if(sign === 'O') {
-                    currentName.innerText = playerTwo.innerText;
+                    scoreP2.textContent = '';
+                    pointsO++;
+                    currentName.textContent = playerTwo.textContent + ' has won!';
+                    scoreP2.textContent = ': ' + pointsO;
                 }
                 if(sign === 'Draw') {
-                    currentName.innerText = 'Draw'
+                    currentName.textContent = 'DRAW'
                 }
             }
 
@@ -84,6 +95,13 @@ function mount() {
                 for(let i = 0; i < fieldElements.length; i++) {
                     domGameboard(i);
                 }
+            })
+
+            resetPoints.addEventListener('click', () => {
+                scoreP1.textContent = '';
+                scoreP2.textContent = '';
+                pointsX = 0;
+                pointsO = 0;
             })
 
             return{domGameboard, turnMessage, resultMessage}
@@ -99,13 +117,14 @@ function mount() {
             const playRound = (index) => {
                 gameboard.setGameboard(index, currentPlayerSign())
                 if(checkWinner(index)) {
-                    console.log('win');
                     displayController.resultMessage(currentPlayerSign())
+                    displayController.domGameboard(index);                  
                     isOver = true;
                     return;
                 }
                 if(round === 9) {
                     displayController.resultMessage('Draw');
+                    displayController.domGameboard(index);
                     isOver = true;
                     return;
                 }
@@ -118,7 +137,7 @@ function mount() {
                 return round % 2 === 1 ? x.getSign() : o.getSign();
             }
 
-            const turnName = () => {
+            const turnName = (name) => {
                 if(round % 2 !== 1) {
                     name = document.querySelector('.player-one').innerText;
                     displayController.turnMessage(name, '#39F01F');
@@ -156,7 +175,7 @@ function mount() {
                 name = document.querySelector('.player-one').innerText;
                 displayController.turnMessage(name, '#39F01F');
             }
-            return {playRound, getIsOver, reset};
+            return {playRound, getIsOver, reset, turnName};
         })();
    }
 }
