@@ -4,17 +4,46 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    
     <link rel="stylesheet" href="../css/transitions.css">
-    <title>player vs machine</title>
+    <link rel="stylesheet" href="../css/pvp.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Aclonica&family=Lilita+One&display=swap" rel="stylesheet"> 
+    <title>TicTacToe</title>
 </head>
 <body>  
     <main id="swup" class="transition-players">
-        <h1>player vs machine</h1>
-        <a href="/TicTacToe/html/index.html"><button>Home<i>X</i></button></a>
+        <div class="score-machine-container">
+            <div>
+                <span class="player">Player 1 </span><span class="score-player"></span><br>
+                <span class="signP">X</span>
+            </div>
+            <div class="current-player"></div>
+            <div>
+                <span class="machine">IA Machine</span><span class="score-machine"></span><br>
+                <span class="signM">O</span>
+            </div>
+        </div>
+        <div class="gameboard">
+            <button class="fieldM" data-index="0"></button>
+            <button class="fieldM" data-index="1"></button>
+            <button class="fieldM" data-index="2"></button>
+            <button class="fieldM" data-index="3"></button>
+            <button class="fieldM" data-index="4"></button>
+            <button class="fieldM" data-index="5"></button>
+            <button class="fieldM" data-index="6"></button>
+            <button class="fieldM" data-index="7"></button>
+            <button class="fieldM" data-index="8"></button>
+        </div>
+        <div class="buttons">
+            <button class="reset-points">Reset Points<i>X</i></button>
+            <a href="/TicTacToe/html/index.html"><button>Home<i>X</i></button></a>
+            <button class="reset-gameboard">Reset Gameboard<i>X</i></button>
+        </div>
     </main>
     <script src="../../node_modules/swup/dist/swup.min.js"></script>
-    <script src="../js/script.js"></script>      
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/script.js"></script> 
+   
 </body>
+
 </html>

@@ -6,9 +6,60 @@ const swup = new Swup();
 swup.on('contentReplaced', mount);
 
 function mount() {
-//Player
+//Player vs Player
    if(document.querySelector('.score-container')) {
-        playerOne();
+    //Alerts
+        const playerOne = (async () => {
+            const { value: playerXName } = await Swal.fire({
+                title: 'Player 1 name',
+                input: 'text',
+                inputPlaceholder: 'Player X name',
+                showCancelButton: false,
+                background: '#333336',
+                confirmButtonText: 'CONTINUE',
+                confirmButtonColor: '#333336',
+                customClass: {
+                    title: 'alert-content',
+                    input: 'alert-input',
+                    confirmButton: 'alert-confirm',
+                },
+                inputValidator: (value) => {
+                  if (!value) {
+                    return 'You need to write something!'
+                  } else {
+                    document.querySelector('.player-one').innerText = value ;
+                    playerTwo();
+                    document.querySelector('.current-player').innerText = value + "'s turn"
+                  }
+                }
+              });
+        })();
+
+        const playerTwo = async () => {
+            const {value: playerOName} = await Swal.fire({
+                title: 'Player 2 name',
+                input: 'text',
+                inputPlaceholder: 'Player O name',
+                showCancelButton: false,
+                background: '#333336',
+                confirmButtonText: 'Play',
+                confirmButtonColor: '#333336',
+                customClass: {
+                    title: 'alert-content',
+                    input: 'alert-input',
+                    confirmButton: 'alert-confirm',
+                    cancelButton: 'alert-confirm',
+                },
+                inputValidator: (value) => {
+                    if(!value) {
+                        return 'You need to write something!'
+                    } else {
+                        document.querySelector('.player-two').innerText = value;
+                    }
+                }
+            })
+        }
+    //Player
         const player = (sign) => { //Will define the players
             this.sign = sign;
             const getSign = () => {
@@ -16,8 +67,8 @@ function mount() {
             }
             return {getSign}
         };
-//Gameboard
-        const gameboard = (() => { //Will define the array 
+    //Gameboard
+        const gameboard = (() => { //Will define the array
             let _gameboard = ["", "", "", "", "", "", "", "", ""];
 
             const setGameboard = (index, sign) => {
@@ -37,7 +88,7 @@ function mount() {
             return {setGameboard, getGameboard, reset}
 
         })();
-//Display Controller
+    //Display Controller
         const displayController = (() => { //Will define the DOM events
             let fieldElements = document.querySelectorAll('.field');
             let resetGame = document.querySelector('.reset-gameboard');
@@ -106,7 +157,7 @@ function mount() {
 
             return{domGameboard, turnMessage, resultMessage}
         })();
-//Game Controller
+    //Game Controller
         const gameController = (() => { //Will define the gameflow
             let round = 1;
             let name;
@@ -118,7 +169,7 @@ function mount() {
                 gameboard.setGameboard(index, currentPlayerSign())
                 if(checkWinner(index)) {
                     displayController.resultMessage(currentPlayerSign())
-                    displayController.domGameboard(index);                  
+                    displayController.domGameboard(index);
                     isOver = true;
                     return;
                 }
@@ -168,7 +219,7 @@ function mount() {
             const getIsOver = () => {
                 return isOver;
             }
-            
+
             const reset = () => {
                 round = 1;
                 isOver = false;
@@ -178,58 +229,99 @@ function mount() {
             return {playRound, getIsOver, reset, turnName};
         })();
    }
-}
+//Player vs Machine
+   if(document.querySelector('.score-machine-container') && !document.querySelector('.score-container')) {
+       const player = (sign) => {
+           this.sign = this.sign
+           const getSign = () => {
+               return sign
+           }
 
-//Alert for player one
-const playerOne = async function() {
-    const { value: playerXName } = await Swal.fire({
-        title: 'Player 1 name',
-        input: 'text',
-        inputPlaceholder: 'Player X name',
-        showCancelButton: false,
-        background: '#333336',
-        confirmButtonText: 'CONTINUE',
-        confirmButtonColor: '#333336',
-        customClass: {
-            title: 'alert-content',
-            input: 'alert-input',
-            confirmButton: 'alert-confirm',
-        },
-        inputValidator: (value) => {
-          if (!value) {
-            return 'You need to write something!'
-          } else {
-            document.querySelector('.player-one').innerText = value ;
-            playerTwo();
-            document.querySelector('.current-player').innerText = value + "'s turn"
-          }
+           return{getSign}
+
+       }
+
+       const gameboardM = (() => {
+           const _gameboardM = ["", "", "", "", "", "", "", ""];
+           let bestScore = -Infinity;
+           let bestMoveM;
+
+           const setGameboardM = (index, sign) => {
+            _gameboardM[index] = sign;
+            console.log(_gameboardM);
         }
-      });
-}
-//Alert for player two
-const playerTwo = async function() {
-    const {value: playerOName} = await Swal.fire({
-        title: 'Player 2 name',
-        input: 'text',
-        inputPlaceholder: 'Player O name',
-        showCancelButton: false,
-        background: '#333336',
-        confirmButtonText: 'Play',
-        confirmButtonColor: '#333336',
-        customClass: {
-            title: 'alert-content',
-            input: 'alert-input',
-            confirmButton: 'alert-confirm',
-            cancelButton: 'alert-confirm',
-        },
-        inputValidator: (value) => {
-            if(!value) {
-                return 'You need to write something!'
-            } else {
-                document.querySelector('.player-two').innerText = value;
+
+        const getGameboardM = (index) => {
+            return _gameboardM[index]
+        }
+
+        const bestMove = () => {
+            for(let i = 0; i < _gameboardM.length; i++) {
+                if(_gameboardM[i] == '') {
+                    let score = minimax(_gameboardM);
+                    if(score > bestScore) {
+                        bestScore = score;
+                        setGameboardM(i, 'O');
+                        displayControllerM.domGameboardM(i);
+                    }
+                }
             }
         }
-    })
+
+        const minimax = (gameboard) =>{
+           return 1;
+        }
+
+        return{setGameboardM, getGameboardM, bestMove}
+
+       })();
+
+       const displayControllerM = (() => {
+           const fieldElementsM = document.querySelectorAll('.fieldM');
+
+           fieldElementsM.forEach((field) => {
+               field.addEventListener('click', (e) => {
+                   if(e.target.textContent != '')return;
+                    gameControllerM.playRound(parseInt(e.target.dataset.index));
+               })
+           })
+
+
+           const domGameboardM = (index) => {
+            fieldElementsM[index].textContent = gameboardM.getGameboardM(index);
+            if(gameboardM.getGameboardM(index) === 'X') {
+                fieldElementsM[index].style.color = '#39F01F'
+            } else {
+                fieldElementsM[index].style.color = '#00EAD3'
+            }
+           }
+
+           return {domGameboardM}
+
+       })();
+
+       const gameControllerM = (() => {
+            const fieldElementsM = document.querySelectorAll('.fieldM');
+            let bestScore = -Infinity;
+
+            const playRound = (index) => {
+                gameboardM.setGameboardM(index, 'X');
+                displayControllerM.domGameboardM(index);
+                gameboardM.bestMove();
+            }
+
+            // const currentPlayer = () => {
+            //     return round % 2 === 1 ? x.getSign() : bestMove();
+            // }
+
+
+            return{playRound}
+
+       })();
+   }
+
 }
+
+
 
 

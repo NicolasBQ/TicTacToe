@@ -44,8 +44,8 @@ body {
     border-bottom: 5px solid var(--main-blue);
     border-right: 4px solid var(--main-blue) ;
 }
-
-.score-container {
+/*Player vs Player nav container */
+.score-container  {
     width: 100%;
     height: auto;
     display: flex;
@@ -65,6 +65,28 @@ body {
 .score-container .player-two, .score-player2, .signO {
     color: var(--main-blue);
 }
+/* Player vs machine nav container */
+.score-machine-container  {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.score-machine-container div {
+    margin: 20px;
+    text-align: center;
+    font-size: 1.6rem;
+    font-family: 'Aclonica';
+    color: #fff;
+}
+.score-machine-container .player, .score-player, .signP {
+    color: var(--main-green);
+}
+.score-machine-container .machine, .score-machine, .signM  {
+    color: var(--main-blue);
+}
+/*Gameboard */
 .gameboard {
     height: 300px;
     width: 300px;
